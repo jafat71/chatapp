@@ -9,26 +9,22 @@ const Search = () => {
         getContactList
     } = useGetContacts()
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if(!search) return
-        const filteredContacts = contacts.filter((contact)=>{
-            if(contact.fullname.toLowerCase().includes(search.toLowerCase())){
-                return contact
-            }
-        }) 
-        setContacts(filteredContacts)
-    }
-
     useEffect(() => {
         if(!search){
             getContactList()
+        }else{
+            const filteredContacts = contacts.filter((contact)=>{
+                if(contact.fullname.toLowerCase().includes(search.toLowerCase())){
+                    return contact
+                }
+            }) 
+            setContacts(filteredContacts)
         }
     }, [search])
     
     return (
         <div>
-            <form onSubmit={handleSubmit} className="flex flex-col items-center px-2">
+            <form className="flex flex-col items-center px-2">
                 <span className="label-text mb-1 text-rose-300 font-bold">INSTACHAT</span>
                 <label className="flex items-center gap-2">
 

@@ -16,12 +16,13 @@ const ContactList = () => {
     
 
     const {contacts} = useContact()
-    
+
+    console.log(contacts)
     return (
         <div className="flex flex-col items-center w-full h-[250px] md:flex overflow-y-auto md:h-screen ">
             
             {
-                contacts.map((contact)=>(
+                contacts?.map((contact)=>(
                     <Contact
                         key={contact._id}
                         conversation={contact}
