@@ -8,6 +8,8 @@ const useContact = create((set)=>({
     setMessages: (messages) => set({messages}),
     contacts: [],
     setContacts: (contacts) => set({contacts}),
+    contactSearch: "",
+    setContactSearch: (contactSearch) => set({contactSearch}),
 }))
 
 export default useContact;

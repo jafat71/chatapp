@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useGetContacts } from "../../hooks/useGetContacts";
 import useContact from "../../zustand/useContact";
 import Contact from "./Contact"
@@ -9,20 +9,24 @@ const ContactList = () => {
         loading,
         getContactList
     } = useGetContacts();
+    const {contacts,contactSearch} = useContact()
+    const [displayContacts, setDisplayContacts] = useState([]);
 
     useEffect(() => {
         getContactList()
     }, [])
-    
 
-    const {contacts} = useContact()
-
-    console.log(contacts)
+    useEffect(() => {
+        const filteredContacts = contacts.filter(contact =>
+            contact.fullname.toLowerCase().includes(contactSearch.toLowerCase())
+        );
+        setDisplayContacts( contactSearch==="" ? contacts : filteredContacts);
+    }, [contactSearch, contacts]);
     return (
         <div className="flex flex-col items-center w-full h-[250px] md:flex overflow-y-auto md:h-screen ">
             
             {
-                contacts?.map((contact)=>(
+                displayContacts .map((contact)=>(
                     <Contact
                         key={contact._id}
                         conversation={contact}
