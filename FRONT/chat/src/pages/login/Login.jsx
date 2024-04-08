@@ -1,5 +1,21 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useLogin } from "../../hooks/useLogin";
 
 const Login = () => {
+
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+    const [loading, setLoading] = useState(false)
+    const [login] = useLogin()
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true)
+        await login({username,password})
+        setLoading(false)
+    }
+
     return (
         <div>
             <div className="hero min-h-screen text-black">
@@ -14,34 +30,59 @@ const Login = () => {
                         </p>
                     </div>
 
-
                     <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-                        <form className="card-body">
+                        <form className="card-body" onSubmit={handleSubmit}>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Username</span>
                                 </label>
-                                <input type="text" placeholder="username" className="input input-bordered text-white focus:ring-2 focus:ring-rose-500" required />
+                                <input
+                                    type="text"
+                                    placeholder="username"
+                                    className="input input-bordered text-white focus:ring-2 focus:ring-rose-500"
+                                    required
+                                    value={username}
+                                    onChange={(e)=>setUsername(e.target.value)}
+                                />
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input type="password" placeholder="password" className="input input-bordered text-white focus:ring-2 focus:ring-rose-500" required />
+                                <input
+                                    type="password"
+                                    placeholder="password"
+                                    className="input input-bordered text-white focus:ring-2 focus:ring-rose-500"
+                                    required
+                                    value={password}
+                                    onChange={(e)=>setPassword(e.target.value)}
+                                />
                             </div>
                             <div className="form-control mt-6">
-                                <button type="submit" className="btn btn-primary">Login</button>
-                            </div>
-
-                            <div className="form-control mt-1">
-                                <button className="btn btn-secondary">Signup</button>
+                                <button 
+                                type="submit" 
+                                className="btn btn-primary" 
+                                disabled={loading}>
+                                    {loading ? <span className="loading loading-spinner"></span> :"Login"}
+                                </button>
                             </div>
                         </form>
+                        <label className="label">
+                            <span className="mx-8 label-text">Don´t have an acount?</span>
+                        </label>
+                        <Link to="/signup" className="my-2 flex justify-center">
+                            <button 
+                            className="btn btn-secondary w-[20rem]"  
+                            disabled={loading}
+                            >
+                            {loading ? <span className="loading loading-spinner"></span> :"Signup"}
+                            </button>
+                        </Link>
                     </div>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Login
+export default Login;

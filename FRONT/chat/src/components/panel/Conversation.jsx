@@ -1,21 +1,49 @@
-import { useEffect, useState } from "react"
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/jsx-key */
+import { useEffect, useRef, useState } from "react"
 import Message from "./Message"
 import WelcomeImg from "./WelcomeImg"
-import { useDisplayValue } from "../../GlobalContext"
+import useContact from "../../zustand/useContact"
+import { useGetMessages } from "../../hooks/useGetMessages"
+import SkeletonChat from "./SkeletonChat"
 
 const Conversation = () => {
-    const [messagesExist, setMessagesExist] = useState(true)
 
-    const actualDisplay = useDisplayValue()  
+    const {selectedContact, setSelectedContact} = useContact()
+
     useEffect(() => {
-    }, [actualDisplay])
-    
+      return () => {
+        setuserInfo(null)
+      }
+    }, [setSelectedContact])
+
+    const lastMessage = useRef()
+
+    const [userInfo, setuserInfo] = useState({})
+
+    useEffect(() => {
+        setuserInfo(JSON.parse(localStorage.getItem("user")))
+    }, [])
+
+    const [loading,messages] = useGetMessages()
+
+    useEffect(() => {
+        messages && setTimeout(()=>{
+            lastMessage.current?.scrollIntoView({behavior:"smooth"})
+        },100)
+    }, [messages]);
 
     const noMessages = () => {
         return (
             <div className="flex flex-col items-center text-white justify-center h-screen">
                 <WelcomeImg></WelcomeImg>
-                <h2>HI NOMRE APELLIDO - USERNAME</h2>
+                {
+                    userInfo.userLogged ? (
+                    <h2>HI {userInfo.userLogged.fullname} - {userInfo.userLogged.username}</h2>
+                ) : (
+                    <span className="loading loading-spinner"></span>
+                )
+                }
                 <p>Choose a friend to start chatting :)</p>
             </div>
         )
@@ -23,27 +51,30 @@ const Conversation = () => {
 
     const getMessages = () => {
         return (
-            <>
-                <Message></Message>
-                <Message></Message>
-                <Message></Message>
-                <Message></Message>
-                <Message></Message>
-                <Message></Message>
-                <Message></Message>
-                <Message></Message>
-                <Message></Message>
-                <Message></Message>
-                <Message></Message>
-            </>
+            <div>
+            {
+                loading && [...Array(7)].map((_,idx)=><SkeletonChat key={idx} className="w-full"/>)
+            }
+            {
+                !loading && messages.length=== 0 && (<p className="flex flex-col items-center justify-center text-center font-thin text-xl">Send a meesage to start a conversation</p>)
+            }
+            {
+                !loading && messages.length>0 && messages.map((message)=>(
+                    <div key={message._id} ref={lastMessage}>
+                        <Message message={message} />
+                    </div>
+                    ))
+            }
+
+            </div>
         )
     }
 
   return (
-    <div className="flex flex-col items-center w-full h-[300px] md:flex overflow-y-auto md:h-screen ">
+    <div className="w-full flex flex-col h-[300px] md:flex overflow-y-auto md:h-screen ">
     
     {
-        messagesExist 
+        selectedContact 
         ? getMessages()
         : noMessages()
     }

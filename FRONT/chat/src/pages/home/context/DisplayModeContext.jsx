@@ -3,24 +3,24 @@
 import { createContext, useContext, useReducer } from "react";
 import { displayReducer } from "./displayReducer";
 
-const GlobalContext = createContext();
+const DisplayModeContext = createContext();
 
-export const GlobalContextProvider = (props) => {
+export const DisplayModeContextProvider = (props) => {
   const [display, dispatchDisplay] = useReducer(displayReducer, "CONTACT");
-
   return (
-    <GlobalContext.Provider value={[display, dispatchDisplay]}>
+    <DisplayModeContext.Provider value={[display, dispatchDisplay]}>
       {props.children}
-    </GlobalContext.Provider>
+    </DisplayModeContext.Provider>
   );
 };
 
+
 export const useDisplayValue = () => {
-  const fullContext = useContext(GlobalContext);
+  const fullContext = useContext(DisplayModeContext);
   return fullContext[0];
 };
 
 export const useDisplayDispatch = () => {
-  const fullContext = useContext(GlobalContext);
+  const fullContext = useContext(DisplayModeContext);
   return fullContext[1];
 };

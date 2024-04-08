@@ -1,4 +1,4 @@
-import { useDisplayValue } from "../../GlobalContext";
+import { useDisplayValue } from "../../pages/home/context/DisplayModeContext";
 import ContactList from "./ContactList";
 import Logout from "./Logout";
 import Search from "./Search";

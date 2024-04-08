@@ -12,6 +12,7 @@ class AuthController {
 
             return res.json({
                 userLogged: {
+                    _id:       userLogged._id,
                     fullname:   userLogged.fullname,
                     username:   userLogged.username,
                     gender:     userLogged.gender,
@@ -42,6 +43,7 @@ class AuthController {
 
             return res.json({
                 userCreated: {
+                    _id,
                     fullname,
                     username,
                     password,

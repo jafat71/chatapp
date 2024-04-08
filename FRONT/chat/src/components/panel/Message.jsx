@@ -1,20 +1,38 @@
-const Message = () => {
+/* eslint-disable react/prop-types */
+
+import { useAuthUserValue } from "../../context/AuthContext";
+import { extractTime } from "../../services/extractTime";
+import useContact from "../../zustand/useContact";
+
+/* eslint-disable no-unused-vars */
+const Message = ({message}) => {
+  const user = useAuthUserValue()
+  const {selectedContact} = useContact()
+
+  const fromMe = message.senderId === user.userLogged._id
+  const chatClassName = fromMe ? 'chat-end':'chat-start';
+  const profilePic = fromMe ? user.userLogged.profilePic:selectedContact?.profilePic;
+  const bubbleColor = fromMe ? 'chat-bubble-primary' : 'chat-bubble-secondary' 
+  const userName = fromMe ? user.userLogged.fullname: selectedContact?.fullname
+  const dateFormatted = extractTime(message.createdAt)
   return (
-    <div className="chat chat-start w-full p-2">
+    <div className={`chat ${chatClassName} w-full p-2`}>
       <div className="chat-image avatar">
         <div className="w-10 rounded-full">
           <img
             alt="Tailwind CSS chat bubble component"
-            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+            src={profilePic}
           />
         </div>
       </div>
       <div className="chat-header">
-        Obi-Wan Kenobi
-        <time className="text-xs opacity-50 px-1">12:45</time>
+        {userName}
       </div>
-      <div className="chat-bubble chat-bubble-secondary">You were the Chosen One!</div>
-      <div className="chat-footer opacity-50">Delivered</div>
+      <div className={`chat-bubble ${bubbleColor}`}>{message.message}</div>
+      <div className="chat-footer">
+      <time className="text-xs opacity-50 py-1">{dateFormatted}</time>
+      </div>
+
     </div>
   );
 };

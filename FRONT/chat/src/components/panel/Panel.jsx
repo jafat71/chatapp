@@ -1,9 +1,12 @@
-import { useDisplayDispatch, useDisplayValue } from "../../GlobalContext";
+import { useDisplayDispatch, useDisplayValue } from "../../pages/home/context/DisplayModeContext";
+import useContact from "../../zustand/useContact";
 import BackIcon from "./BackIcon";
 import Conversation from "./Conversation";
 import MessageInput from "./MessageInput";
 
 const Panel = () => {
+  const {selectedContact} = useContact()
+
   const dispatchDisplay = useDisplayDispatch()
   const handleClick = () => {
     (!window.matchMedia("(min-width: 768px)").matches) && dispatchDisplay({ type: "CONTACT" })
@@ -18,7 +21,7 @@ const Panel = () => {
             <BackIcon></BackIcon>
         </button>
         
-        <h1>NOMBRE APELLIDO</h1>
+        <h1>{selectedContact ? selectedContact.fullname: ""}</h1>
       </div>
 
       <Conversation></Conversation>
