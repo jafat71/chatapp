@@ -14,7 +14,6 @@ const sendLogin = async (
                 password
                 })
         })
-        console.log(response)
         const data = await response.json()
         return data
     }catch(error){

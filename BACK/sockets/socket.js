@@ -18,17 +18,13 @@ const getReceiverSocketId = (receiverId) => userSocketMap[receiverId]
 const userSocketMap = {}
 
 io.on("connection",(socket)=>{
-    console.log("Connected: ", socket.id)
 
     const userId = socket.handshake.query.id
-    console.log(userId)
     if(userId!=="undefined") userSocketMap[userId] = socket.id
-    console.log(userSocketMap)
 
     io.emit("getOnlineusers", Object.keys(userSocketMap))
 
     socket.on("disconnect",()=>{
-        console.log("Disonnected: ", socket.id)
         delete userSocketMap[userId]
         io.emit("getOnlineusers", Object.keys(userSocketMap))
 

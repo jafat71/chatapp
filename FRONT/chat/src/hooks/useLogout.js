@@ -18,7 +18,6 @@ export const useLogout = () => {
             return data
         } catch (error) {
             toast.error("" + error)
-            console.log(error)
             return null
         }
     }
