@@ -29,8 +29,9 @@ const Conversation = () => {
 
     useEffect(() => {
         messages && setTimeout(()=>{
+    
             lastMessage.current?.scrollIntoView({behavior:"smooth"})
-        },100)
+        },1000)
     }, [messages]);
 
     const noMessages = () => {
