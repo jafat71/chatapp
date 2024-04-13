@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { useConnectedUsersValue } from "../../context/SocketContext";
 import { useDisplayDispatch } from "../../pages/home/context/DisplayModeContext";
 import useContact from "../../zustand/useContact";
 import ChatIcon from "./ChatIcon"
@@ -12,11 +13,12 @@ const Contact = ({conversation}) => {
     const {selectedContact,setSelectedContact } = useContact()
 
     const isSelected = selectedContact?._id === conversation._id
-
+    const onlineUsers =  useConnectedUsersValue();
+    const isOnline = onlineUsers.includes(conversation._id)
     return (
         <div className={`flex flex-row items-center justify-between hover:bg-gray-200  hover:text-black transition-all duration-200 rounded p-2 py-1 cursor-pointer w-full ${isSelected ?" bg-rose-600 ":""}`} onClick={handleClick}>
             <div className="p-2 rounded-sm flex flex-row items-center gap-1 text-sm">
-                <div className="avatar online">
+                <div className={`avatar ${isOnline ?' online':'offline'}`}>
                     <div className="w-8 rounded-full">
                         <img  src={conversation.profilePic} />
                     </div>

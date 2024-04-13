@@ -1,5 +1,6 @@
 const { Conversation } = require("../models/conversation.model");
 const { Message } = require("../models/message.model");
+const { io,getReceiverSocketId } = require("../sockets/socket");
 
 
 class MessageController {
@@ -24,7 +25,14 @@ class MessageController {
             if(newMessage){
                 conversation.messages.push(newMessage._id)
             }
+
             await Promise.all([newMessage.save(),conversation.save()])
+
+            const receiverSocketId = getReceiverSocketId(messageDto.receiverId);
+            if(receiverSocketId){
+                io.to(receiverSocketId).emit("newMessage",newMessage)
+            }
+
             return res.status(201).json(newMessage)
 
         } catch (error) {

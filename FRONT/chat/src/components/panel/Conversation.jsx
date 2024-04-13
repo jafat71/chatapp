@@ -6,8 +6,11 @@ import WelcomeImg from "./WelcomeImg"
 import useContact from "../../zustand/useContact"
 import { useGetMessages } from "../../hooks/useGetMessages"
 import SkeletonChat from "./SkeletonChat"
+import useListenMessages from "../../hooks/useListenMessages"
 
 const Conversation = () => {
+
+    useListenMessages();
 
     const {selectedContact, setSelectedContact} = useContact()
 

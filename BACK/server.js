@@ -1,6 +1,5 @@
 require('dotenv').config()
 const express = require("express")
-const app = express()
 const PORT = process.env.PORT || 8000
 const cookieParser = require("cookie-parser")
 
@@ -9,6 +8,7 @@ const messageRoutes  = require("./routes/message.routes")
 const usersRoutes = require("./routes/users.routes")
 
 const db = require("./db/config")
+const { app, server } = require('./sockets/socket')
 
 app.use(express.json());
 app.use(cookieParser())
@@ -24,7 +24,7 @@ app.get("/",(req,res)=>{
     })
 })
 
-app.listen(PORT,async()=>{
+server.listen(PORT,async()=>{
     console.log("Server running in port " + PORT)
     await db.connect()
 })

@@ -15,6 +15,7 @@ const Message = ({message}) => {
   const bubbleColor = fromMe ? 'chat-bubble-primary' : 'chat-bubble-secondary' 
   const userName = fromMe ? user.userLogged.fullname: selectedContact?.fullname
   const dateFormatted = extractTime(message.createdAt)
+  const shakeClass = message.shouldShake ? 'shake' : ''
   return (
     <div className={`chat ${chatClassName} w-full p-2`}>
       <div className="chat-image avatar">
@@ -28,7 +29,7 @@ const Message = ({message}) => {
       <div className="chat-header">
         {userName}
       </div>
-      <div className={`chat-bubble ${bubbleColor}`}>{message.message}</div>
+      <div className={`chat-bubble ${bubbleColor} ${shakeClass}`}>{message.message}</div>
       <div className="chat-footer">
       <time className="text-xs opacity-50 py-1">{dateFormatted}</time>
       </div>
