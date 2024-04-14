@@ -13,7 +13,7 @@ export const SocketContextProvider = ({children})=> {
 
     useEffect(() => {
         if(userValue){
-            const socket = io("http://localhost:3000/",{
+            const socket = io("https://chatapp-mpyu.onrender.com/",{
                 query:{
                     id: userValue.userLogged._id
                 }
