@@ -17,11 +17,9 @@ const Home = () => {
       if (isMd) {
         dispatchDisplay({ type: "BOTH" })
       } else {
-        if(display==="CHAT"){
-          dispatchDisplay({ type: "CHAT" })
-        }else{
-          dispatchDisplay({ type: "CONTACT" })
-        }
+        // if(!display==="CHAT"){
+        //   dispatchDisplay({ type: "CONTACT" })
+        // }
       }
     };
 
