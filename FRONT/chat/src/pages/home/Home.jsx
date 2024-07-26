@@ -11,10 +11,14 @@ const Home = () => {
   useEffect(() => {
     const handleResize = () => {
       const isMd = window.matchMedia("(min-width: 768px)").matches;
-      if (isMd) {
-        dispatchDisplay({ type: "BOTH" })
-      } else {
-        dispatchDisplay({ type: "CONTACT" })
+      const isKeyboardOpen = window.innerHeight < window.outerHeight - 200;
+
+      if (!isKeyboardOpen) {
+        if (isMd) {
+          dispatchDisplay({ type: "BOTH" });
+        } else {
+          dispatchDisplay({ type: "CONTACT" });
+        }
       }
     };
 
