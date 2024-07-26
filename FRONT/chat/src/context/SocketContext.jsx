@@ -16,7 +16,7 @@ export const SocketContextProvider = ({ children }) => {
             if (userValue) {
                 const socket = await io("https://chatapp-mpyu.onrender.com/", {
                     query: {
-                        id: userValue.userLogged._id
+                        id: userValue.userLogged._id || userValue.userCreated._id 
                     }
                 })
 
