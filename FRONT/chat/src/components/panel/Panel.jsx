@@ -14,7 +14,7 @@ const Panel = () => {
   const actualDisplay = useDisplayValue()  
 
   return (actualDisplay==="CHAT" || actualDisplay==="BOTH") && (
-    <div  id="panel" className="w-full md:flex md:w-3/4 flex-col items-center justify-between md:h-screen">
+    <div  id="panel" className="w-full md:flex md:w-3/4 flex-col items-center justify-between h-screen">
       <div className="flex flex-row gap-3 bg-red-200 w-full h-[30px] items-center text-black border-b-2 border-rose-300 p-2 rounded-md">
         
         <button onClick={handleClick}>

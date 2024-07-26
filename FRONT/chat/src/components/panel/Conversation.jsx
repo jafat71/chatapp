@@ -39,7 +39,7 @@ const Conversation = () => {
 
     const noMessages = () => {
         return (
-            <div className="flex flex-col items-center text-white justify-center h-screen">
+            <div className="flex flex-col items-center text-white justify-center h-full">
                 <WelcomeImg></WelcomeImg>
                 {
                     userInfo.userLogged ? (
@@ -55,7 +55,7 @@ const Conversation = () => {
 
     const getMessages = () => {
         return (
-            <div>
+            <div className="max-h-full">
             {
                 loading && [...Array(7)].map((_,idx)=><SkeletonChat key={idx} className="w-full"/>)
             }
@@ -75,7 +75,7 @@ const Conversation = () => {
     }
 
   return (
-    <div className="w-full flex flex-col h-[300px] md:flex overflow-y-auto md:h-screen ">
+    <div className="w-full flex flex-col h-5/6 overflow-y-auto">
     
     {
         selectedContact 

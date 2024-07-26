@@ -23,7 +23,7 @@ const ContactList = () => {
         setDisplayContacts( contactSearch==="" ? contacts : filteredContacts);
     }, [contactSearch, contacts]);
     return (
-        <div className="flex flex-col items-center w-full h-full md:flex overflow-y-auto ">
+        <div className="flex flex-col items-center w-full h-full overflow-y-auto ">
             
             {
                 displayContacts .map((contact)=>(

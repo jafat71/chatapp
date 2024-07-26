@@ -15,10 +15,10 @@ const Search = () => {
     }, [search])
     
     return (
-        <div>
-            <form className="flex flex-col items-center px-2">
+        <div className="w-full">
+            <form className="flex flex-col items-center px-2 w-full">
                 <span className="label-text mb-1 text-rose-300 font-bold">INSTACHAT</span>
-                <label className="flex items-center gap-2">
+                <label className="flex items-center gap-2 w-full">
                     <input 
                     type="text" 
                     placeholder="Look a friend" 
