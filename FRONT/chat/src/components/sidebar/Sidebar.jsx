@@ -8,7 +8,7 @@ const Sidebar = () => {
   return (actualDisplay==="CONTACT" || actualDisplay==="BOTH") && (
     <div
       id="sideBar"
-      className="flex flex-col items-center w-full sm:h-screen md:w-1/4 md:border-r-2 border-rose-400 py-2"
+      className="flex flex-col items-center w-full h-screen md:w-1/4 md:border-r-2 border-rose-400 py-2"
     >
       <Search></Search>
       <div className="divider border-b-2 border-rose-400"></div>
