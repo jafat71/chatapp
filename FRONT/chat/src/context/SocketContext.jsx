@@ -12,11 +12,15 @@ export const SocketContextProvider = ({ children }) => {
     const userValue = useAuthUserValue()
 
     useEffect(() => {
-        const loadUser = async () => {
+        const loadUser = () => {
+            console.log(userValue)
+            let typeUser = userValue.userLogged 
+            ? userValue.userLogged 
+            : userValue.userCreated 
             if (userValue) {
-                const socket = await io("https://chatapp-mpyu.onrender.com/", {
+                const socket = io("https://chatapp-mpyu.onrender.com/", {
                     query: {
-                        id: userValue.userLogged._id || userValue.userCreated._id 
+                        id: typeUser._id  
                     }
                 })
 
