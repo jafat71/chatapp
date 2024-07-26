@@ -34,7 +34,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="min-h-screen flex flex-col-reverse md:flex-row justify-center items-center bg-base-100 rounded-lg text-white w-3/4 ">
+      <div className="flex flex-col-reverse md:flex-row justify-center items-center bg-base-100 rounded-lg text-white w-3/4 ">
         <Sidebar></Sidebar>
         <Panel></Panel>
     </div>

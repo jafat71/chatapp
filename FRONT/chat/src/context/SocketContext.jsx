@@ -13,11 +13,10 @@ export const SocketContextProvider = ({ children }) => {
 
     useEffect(() => {
         const loadUser = () => {
-            console.log(userValue)
-            let typeUser = userValue.userLogged 
+            let typeUser = userValue && userValue.userLogged 
             ? userValue.userLogged 
-            : userValue.userCreated 
-            if (userValue) {
+            : userValue && userValue.userCreated ? userValue.userCreated : null 
+            if (typeUser) {
                 const socket = io("https://chatapp-mpyu.onrender.com/", {
                     query: {
                         id: typeUser._id  
