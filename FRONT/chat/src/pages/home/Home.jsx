@@ -1,12 +1,14 @@
 import { useEffect } from "react";
 import Panel from "../../components/panel/Panel"
 import Sidebar from "../../components/sidebar/Sidebar"
-import {useDisplayDispatch } from "./context/DisplayModeContext";
+import {useDisplayDispatch, useDisplayValue } from "./context/DisplayModeContext";
 import useContact from "../../zustand/useContact";
 
 const Home = () => {
 
   const dispatchDisplay = useDisplayDispatch()
+  const display = useDisplayValue()
+  console.log(display)
   const {setSelectedContact} = useContact()
   useEffect(() => {
     const handleResize = () => {
@@ -15,7 +17,11 @@ const Home = () => {
       if (isMd) {
         dispatchDisplay({ type: "BOTH" })
       } else {
-        dispatchDisplay({ type: "CONTACT" })
+        if(display==="CHAT"){
+          dispatchDisplay({ type: "CHAT" })
+        }else{
+          dispatchDisplay({ type: "CONTACT" })
+        }
       }
     };
 
