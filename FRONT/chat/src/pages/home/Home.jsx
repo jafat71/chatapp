@@ -8,7 +8,6 @@ const Home = () => {
 
   const dispatchDisplay = useDisplayDispatch()
   const display = useDisplayValue()
-  console.log(display)
   const {setSelectedContact} = useContact()
   useEffect(() => {
     const handleResize = () => {
@@ -17,9 +16,11 @@ const Home = () => {
       if (isMd) {
         dispatchDisplay({ type: "BOTH" })
       } else {
-        // if(!display==="CHAT"){
-        //   dispatchDisplay({ type: "CONTACT" })
-        // }
+        display==="BOTH" && dispatchDisplay({ type: "CONTACT" })
+        display==="CONTACT" && dispatchDisplay({ type: "CONTACT" })
+        display==="CHAT" && dispatchDisplay({ type: "CHAT" })
+
+
       }
     };
 
