@@ -30,7 +30,12 @@ const Conversation = () => {
     }, [])
     const liveMessages = useLiveMessageValue()
     const [loading, messages] = useGetMessages()
-    const correctConversation =  liveMessages.senderId===selectedContact._id
+    const correctConversation =  liveMessages.senderId===selectedContact&&selectedContact._id
+    console.log("Selected")
+    console.log(liveMessages.senderId)
+    console.log("contac")
+    console.log(selectedContact._id)
+    console.log("Correct: ", correctConversation)
     useEffect(() => {
         messages && correctConversation && setTimeout(() => {
 
