@@ -12,12 +12,12 @@ const Conversation = () => {
 
     useListenMessages();
 
-    const {selectedContact, setSelectedContact} = useContact()
+    const { selectedContact, setSelectedContact } = useContact()
 
     useEffect(() => {
-      return () => {
-        setuserInfo(null)
-      }
+        return () => {
+            setuserInfo(null)
+        }
     }, [setSelectedContact])
 
     const lastMessage = useRef()
@@ -28,13 +28,13 @@ const Conversation = () => {
         setuserInfo(JSON.parse(localStorage.getItem("user")))
     }, [])
 
-    const [loading,messages] = useGetMessages()
+    const [loading, messages] = useGetMessages()
 
     useEffect(() => {
-        messages && setTimeout(()=>{
-    
-            lastMessage.current?.scrollIntoView({behavior:"smooth"})
-        },1000)
+        messages && setTimeout(() => {
+
+            lastMessage.current?.scrollIntoView({ behavior: "smooth" })
+        }, 1000)
     }, [messages]);
 
     const noMessages = () => {
@@ -43,10 +43,14 @@ const Conversation = () => {
                 <WelcomeImg></WelcomeImg>
                 {
                     userInfo.userLogged ? (
-                    <h2>HI {userInfo.userLogged.fullname} - {userInfo.userLogged.username}</h2>
-                ) : (
-                    <span className="loading loading-spinner"></span>
-                )
+                        <h2>HI {userInfo.userLogged.fullname} - {userInfo.userLogged.username}</h2>
+                    ) : (
+                        userInfo.userCreated ? (
+                            <h2>HI {userInfo.userCreated.fullname} - {userInfo.userCreated.username}</h2>
+                        ) : (
+                            <span className="loading loading-spinner"></span>
+                        )
+                    )
                 }
                 <p>Choose a friend to start chatting :)</p>
             </div>
@@ -56,35 +60,35 @@ const Conversation = () => {
     const getMessages = () => {
         return (
             <div className="max-h-full">
-            {
-                loading && [...Array(7)].map((_,idx)=><SkeletonChat key={idx} className="w-full"/>)
-            }
-            {
-                !loading && messages.length=== 0 && (<p className="flex flex-col items-center justify-center text-center font-thin text-xl">Send a meesage to start a conversation</p>)
-            }
-            {
-                !loading && messages.length>0 && messages.map((message)=>(
-                    <div key={message._id} ref={lastMessage}>
-                        <Message message={message} />
-                    </div>
+                {
+                    loading && [...Array(7)].map((_, idx) => <SkeletonChat key={idx} className="w-full" />)
+                }
+                {
+                    !loading && messages.length === 0 && (<p className="flex flex-col items-center justify-center text-center font-thin text-xl">Send a meesage to start a conversation</p>)
+                }
+                {
+                    !loading && messages.length > 0 && messages.map((message) => (
+                        <div key={message._id} ref={lastMessage}>
+                            <Message message={message} />
+                        </div>
                     ))
-            }
+                }
 
             </div>
         )
     }
 
-  return (
-    <div className="w-full flex flex-col h-5/6 overflow-y-auto">
-    
-    {
-        selectedContact 
-        ? getMessages()
-        : noMessages()
-    }
+    return (
+        <div className="w-full flex flex-col h-5/6 overflow-y-auto">
 
-</div>
-  )
+            {
+                selectedContact
+                    ? getMessages()
+                    : noMessages()
+            }
+
+        </div>
+    )
 }
 
 export default Conversation

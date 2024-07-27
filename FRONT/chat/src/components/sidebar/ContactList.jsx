@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useGetContacts } from "../../hooks/useGetContacts";
 import useContact from "../../zustand/useContact";
 import Contact from "./Contact"
-
 const ContactList = () => {
 
     const {
@@ -11,7 +10,6 @@ const ContactList = () => {
     } = useGetContacts();
     const {contacts,contactSearch} = useContact()
     const [displayContacts, setDisplayContacts] = useState([]);
-
     useEffect(() => {
         getContactList()
     }, [])
@@ -22,6 +20,7 @@ const ContactList = () => {
         );
         setDisplayContacts( contactSearch==="" ? contacts : filteredContacts);
     }, [contactSearch, contacts]);
+
     return (
         <div className="flex flex-col items-center w-full h-full overflow-y-auto ">
             

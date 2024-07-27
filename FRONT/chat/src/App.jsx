@@ -7,6 +7,7 @@ import toast, { Toaster } from "react-hot-toast"
 import { DisplayModeContextProvider } from "./pages/home/context/DisplayModeContext";
 import { useAuthUserValue } from "./context/AuthContext";
 import { useEffect } from "react";
+import { LiveContextProvider } from "./pages/home/context/LiveContext";
 function App() {
   const user = useAuthUserValue()
   
@@ -24,7 +25,9 @@ function App() {
             <Navigate to="/login" />
             :
             <DisplayModeContextProvider>
-              <Home></Home>
+              <LiveContextProvider>
+                <Home></Home>
+              </LiveContextProvider>
             </DisplayModeContextProvider>
         }></Route>
         <Route path="/login" element={user ? <Navigate to="/home" /> : <Login></Login>}></Route>
