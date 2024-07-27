@@ -31,15 +31,12 @@ const Conversation = () => {
     const liveMessages = useLiveMessageValue()
     const [loading, messages] = useGetMessages()
     const correctConversation =  liveMessages.senderId===selectedContact?._id
-    console.log("Selected")
-    console.log(liveMessages.senderId)
-    console.log("Correct: ",  correctConversation)
     useEffect(() => {
         messages && correctConversation && setTimeout(() => {
 
             lastMessage.current?.scrollIntoView({ behavior: "smooth" })
         }, 1000)
-    }, [messages]);
+    }, [messages,correctConversation]);
 
     const noMessages = () => {
         return (
@@ -71,7 +68,7 @@ const Conversation = () => {
                     !loading && messages.length === 0 && (<p className="flex flex-col items-center justify-center text-center font-thin text-xl">Send a meesage to start a conversation</p>)
                 }
                 {
-                    !loading && messages.length > 0 && messages.map((message) => (
+                    !loading && correctConversation && messages.length > 0 && messages.map((message) => (
                         <div key={message._id} ref={lastMessage}>
                             <Message message={message} />
                         </div>
