@@ -30,11 +30,12 @@ const Conversation = () => {
     }, [])
     const liveMessages = useLiveMessageValue()
     const [loading, messages] = useGetMessages()
-    //const correctConversation =  liveMessages.senderId===selectedContact&&selectedContact._id
+    const correctConversation =  liveMessages.senderId===selectedContact?._id
     console.log("Selected")
     console.log(liveMessages.senderId)
+    console.log("Correct: ",  correctConversation)
     useEffect(() => {
-        messages && setTimeout(() => {
+        messages && correctConversation && setTimeout(() => {
 
             lastMessage.current?.scrollIntoView({ behavior: "smooth" })
         }, 1000)
