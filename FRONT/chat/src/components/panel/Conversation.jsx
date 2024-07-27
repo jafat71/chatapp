@@ -7,6 +7,7 @@ import useContact from "../../zustand/useContact"
 import { useGetMessages } from "../../hooks/useGetMessages"
 import SkeletonChat from "./SkeletonChat"
 import useListenMessages from "../../hooks/useListenMessages"
+import { useLiveMessageValue } from "../../pages/home/context/LiveContext"
 
 const Conversation = () => {
 
@@ -27,15 +28,15 @@ const Conversation = () => {
     useEffect(() => {
         setuserInfo(JSON.parse(localStorage.getItem("user")))
     }, [])
-
+    const liveMessages = useLiveMessageValue()
     const [loading, messages] = useGetMessages()
-
+    const correctConversation =  liveMessages.senderId===selectedContact._id
     useEffect(() => {
-        messages && setTimeout(() => {
+        messages && correctConversation && setTimeout(() => {
 
             lastMessage.current?.scrollIntoView({ behavior: "smooth" })
         }, 1000)
-    }, [messages]);
+    }, [messages,correctConversation]);
 
     const noMessages = () => {
         return (

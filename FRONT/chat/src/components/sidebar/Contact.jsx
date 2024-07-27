@@ -19,9 +19,7 @@ const Contact = ({conversation}) => {
     const isSelected = selectedContact?._id === conversation._id
     const onlineUsers =  useConnectedUsersValue();
     const isOnline = onlineUsers.includes(conversation._id)
-    const hasNewMessages = liveMessages.senderId===conversation._id
-    console.log(liveMessages.senderId)
-    console.log(hasNewMessages)
+    const hasNewMessages =  liveMessages.senderId===conversation._id
     return (
         <div className={`flex flex-row items-center justify-between hover:bg-gray-200  hover:text-black transition-all duration-200 rounded p-2 py-1 cursor-pointer w-full 
         ${isSelected ?" bg-rose-600 ":""}
