@@ -68,7 +68,7 @@ const Conversation = () => {
                     !loading && messages.length === 0 && (<p className="flex flex-col items-center justify-center text-center font-thin text-xl">Send a meesage to start a conversation</p>)
                 }
                 {
-                    !loading && correctConversation && messages.length > 0 && messages.map((message) => (
+                    !loading && messages.length > 0 && messages.map((message) => (
                         <div key={message._id} ref={lastMessage}>
                             <Message message={message} />
                         </div>
