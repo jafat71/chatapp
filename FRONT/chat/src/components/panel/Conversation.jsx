@@ -24,24 +24,21 @@ const Conversation = () => {
     const lastMessage = useRef()
 
     const [userInfo, setuserInfo] = useState({})
-
+    console.log(selectedContact)
     useEffect(() => {
         setuserInfo(JSON.parse(localStorage.getItem("user")))
     }, [])
     const liveMessages = useLiveMessageValue()
     const [loading, messages] = useGetMessages()
-    const correctConversation =  liveMessages.senderId===selectedContact&&selectedContact._id
+    //const correctConversation =  liveMessages.senderId===selectedContact&&selectedContact._id
     console.log("Selected")
     console.log(liveMessages.senderId)
-    console.log("contac")
-    console.log(selectedContact._id)
-    console.log("Correct: ", correctConversation)
     useEffect(() => {
-        messages && correctConversation && setTimeout(() => {
+        messages && setTimeout(() => {
 
             lastMessage.current?.scrollIntoView({ behavior: "smooth" })
         }, 1000)
-    }, [messages,correctConversation]);
+    }, [messages]);
 
     const noMessages = () => {
         return (
