@@ -66,7 +66,12 @@ const Conversation = () => {
                     !loading && messages.length === 0 && (<p className="flex flex-col items-center justify-center text-center font-thin text-xl">Send a meesage to start a conversation</p>)
                 }
                 {
-                    !loading && messages.filter((message) => message.senderId === selectedContact._id).map((message) => (
+                    !loading && messages
+                    .filter((message) => 
+                            (message.senderId === selectedContact._id && message.receiverId === userInfo._id) || 
+                            (message.senderId === userInfo._id && message.receiverId === selectedContact._id)
+                        )
+                    .map((message) => (
                         <div key={message._id} ref={lastMessage}>
                             <Message message={message} />
                         </div>
