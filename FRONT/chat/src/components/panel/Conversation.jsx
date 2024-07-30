@@ -56,6 +56,11 @@ const Conversation = () => {
         )
     }
 
+    console.log("Contact")
+    console.log(selectedContact)
+    console.log("Actual User")
+    console.log(userInfo)
+
     const getMessages = () => {
         return (
             <div className="max-h-full">
@@ -67,11 +72,7 @@ const Conversation = () => {
                 }
                 {
                     !loading && messages
-                    .filter((message) => 
-                            (message.senderId === selectedContact._id && message.receiverId === userInfo._id) || 
-                            (userInfo.userLogged &&  message.senderId === userInfo.userLogged._id && message.receiverId === selectedContact._id) ||
-                            (userInfo.userCreated &&  message.senderId === userInfo.userCreated._id && message.receiverId === selectedContact._id) 
-                        )
+
                     .map((message) => (
                         <div key={message._id} ref={lastMessage}>
                             <Message message={message} />
