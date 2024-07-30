@@ -14,7 +14,7 @@ const Conversation = () => {
     useListenMessages();
 
     const { selectedContact, setSelectedContact } = useContact()
-
+    //TODO: CREAR CONTEXTO de Contacto actual para chequeo de conversacion actual
     useEffect(() => {
         return () => {
             setuserInfo(null)
@@ -24,19 +24,17 @@ const Conversation = () => {
     const lastMessage = useRef()
 
     const [userInfo, setuserInfo] = useState({})
-    console.log(selectedContact)
     useEffect(() => {
         setuserInfo(JSON.parse(localStorage.getItem("user")))
     }, [])
     const liveMessages = useLiveMessageValue()
     const [loading, messages] = useGetMessages()
-    const correctConversation =  liveMessages.senderId===selectedContact?._id
     useEffect(() => {
-        messages && correctConversation && setTimeout(() => {
+        messages && setTimeout(() => {
 
             lastMessage.current?.scrollIntoView({ behavior: "smooth" })
         }, 1000)
-    }, [messages,correctConversation]);
+    }, [messages]);
 
     const noMessages = () => {
         return (
@@ -68,7 +66,7 @@ const Conversation = () => {
                     !loading && messages.length === 0 && (<p className="flex flex-col items-center justify-center text-center font-thin text-xl">Send a meesage to start a conversation</p>)
                 }
                 {
-                    !loading && messages.length > 0 && messages.map((message) => (
+                    !loading && messages.filter((message) => message.senderId === selectedContact._id).map((message) => (
                         <div key={message._id} ref={lastMessage}>
                             <Message message={message} />
                         </div>
