@@ -27,7 +27,6 @@ const Conversation = () => {
     useEffect(() => {
         setuserInfo(JSON.parse(localStorage.getItem("user")))
     }, [])
-    const liveMessages = useLiveMessageValue()
     const [loading, messages] = useGetMessages()
     useEffect(() => {
         messages && setTimeout(() => {
@@ -69,12 +68,7 @@ const Conversation = () => {
                 {
                     !loading && messages.map((message) => (
                         <div key={message._id} ref={lastMessage}>
-                            {
-                                lastMessage 
-                                ? (lastMessage.senderId === selectedContact._id && <Message message={message} />)
-                                : (<Message message={message} />)
-                            }
-                            
+                            <Message message={message} />
                         </div>
                     ))
                 }
