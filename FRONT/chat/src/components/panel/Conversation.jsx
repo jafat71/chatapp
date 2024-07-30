@@ -29,12 +29,14 @@ const Conversation = () => {
     }, [])
     const liveMessages = useLiveMessageValue()
     const [loading, messages] = useGetMessages()
-    // useEffect(() => {
-    //     messages && setTimeout(() => {
+    useEffect(() => {
+        messages && setTimeout(() => {
 
-    //         lastMessage.current?.scrollIntoView({ behavior: "smooth" })
-    //     }, 1000)
-    // }, [messages]);
+            lastMessage.current?.scrollIntoView({ behavior: "smooth" })
+        }, 1000)
+    }, [messages]);
+
+    console.log(lastMessage)
 
     const noMessages = () => {
         return (
@@ -56,11 +58,6 @@ const Conversation = () => {
         )
     }
 
-    console.log("Contact")
-    console.log(selectedContact)
-    console.log("Actual User")
-    console.log(userInfo)
-
     const getMessages = () => {
         return (
             <div className="max-h-full">
@@ -71,9 +68,12 @@ const Conversation = () => {
                     !loading && messages.length === 0 && (<p className="flex flex-col items-center justify-center text-center font-thin text-xl">Send a meesage to start a conversation</p>)
                 }
                 {
-                    !loading && messages
-
-                    .map((message) => (
+                    !loading && ( lastMessage &&
+                        lastMessage.senderId === selectedContact._id || 
+                        userInfo.userLogged && lastMessage.senderId === userInfo.userLogged._id  ||
+                        userInfo.userCreated && lastMessage.senderId === userInfo.userCreated._id
+                        ) 
+                        && messages.map((message) => (
                         <div key={message._id} ref={lastMessage}>
                             <Message message={message} />
                         </div>
