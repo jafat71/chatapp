@@ -29,12 +29,12 @@ const Conversation = () => {
     }, [])
     const liveMessages = useLiveMessageValue()
     const [loading, messages] = useGetMessages()
-    useEffect(() => {
-        messages && setTimeout(() => {
+    // useEffect(() => {
+    //     messages && setTimeout(() => {
 
-            lastMessage.current?.scrollIntoView({ behavior: "smooth" })
-        }, 1000)
-    }, [messages]);
+    //         lastMessage.current?.scrollIntoView({ behavior: "smooth" })
+    //     }, 1000)
+    // }, [messages]);
 
     const noMessages = () => {
         return (

@@ -17,7 +17,7 @@ const Signup = () => {
 
     const fullnameRegex = /^[a-zA-Z\s]{8,}$/;
     const usernameRegex = /^[\w.@+-]{5,}$/;
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z\d])[A-Za-z\d@$!%*?&_~`#^()+={}\\[\]:;"'<>,.?/\\|]{7,}$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z\d])[A-Za-z\d@$!%*?&_~`#^()+={}\\[\]:;"'<>,.?/\\|]{8,}$/;
 
     const validateField = (name, value) => {
         let error = "";
@@ -35,7 +35,7 @@ const Signup = () => {
                 break;
             case "password":
                 if (!passwordRegex.test(value)) {
-                    error = "Password must be at least 7 characters long and include letters, numbers, and special characters.";
+                    error = "Password must be at least 8 characters long and include letters, numbers, and special characters.";
                 }
                 break;
             case "confirmPassword":
