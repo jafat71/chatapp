@@ -11,8 +11,8 @@ const useListenMessages = () => {
 
     useEffect(() => {
         socket?.on("newMessage", (newMessage)=>{
-            console.log(liveMessageValue)
             dispatchLiveMessage({type:"SET",payload:newMessage})
+            console.log(liveMessageValue)
             newMessage.shouldShake = true
             const sound = new Audio(notifSound)
             sound.play()
