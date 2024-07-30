@@ -36,8 +36,6 @@ const Conversation = () => {
         }, 1000)
     }, [messages]);
 
-    console.log(lastMessage)
-
     const noMessages = () => {
         return (
             <div className="flex flex-col items-center text-white justify-center h-full">
@@ -58,6 +56,7 @@ const Conversation = () => {
         )
     }
 
+
     const getMessages = () => {
         return (
             <div className="max-h-full">
@@ -68,14 +67,14 @@ const Conversation = () => {
                     !loading && messages.length === 0 && (<p className="flex flex-col items-center justify-center text-center font-thin text-xl">Send a meesage to start a conversation</p>)
                 }
                 {
-                    !loading && ( lastMessage &&
-                        lastMessage.senderId === selectedContact._id || 
-                        userInfo.userLogged && lastMessage.senderId === userInfo.userLogged._id  ||
-                        userInfo.userCreated && lastMessage.senderId === userInfo.userCreated._id
-                        ) 
-                        && messages.map((message) => (
+                    !loading && messages.map((message) => (
                         <div key={message._id} ref={lastMessage}>
-                            <Message message={message} />
+                            {
+                                lastMessage 
+                                ? (lastMessage.senderId === selectedContact._id && <Message message={message} />)
+                                : (<Message message={message} />)
+                            }
+                            
                         </div>
                     ))
                 }
