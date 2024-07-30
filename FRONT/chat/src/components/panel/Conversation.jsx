@@ -69,7 +69,8 @@ const Conversation = () => {
                     !loading && messages
                     .filter((message) => 
                             (message.senderId === selectedContact._id && message.receiverId === userInfo._id) || 
-                            (message.senderId === userInfo._id && message.receiverId === selectedContact._id)
+                            (userInfo.userLogged &&  message.senderId === userInfo.userLogged._id && message.receiverId === selectedContact._id) ||
+                            (userInfo.userCreated &&  message.senderId === userInfo.userCreated._id && message.receiverId === selectedContact._id) 
                         )
                     .map((message) => (
                         <div key={message._id} ref={lastMessage}>
