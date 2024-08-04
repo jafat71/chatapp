@@ -15,13 +15,18 @@ export const SocketContextProvider = ({ children }) => {
         const loadUser = () => {
             let typeUser = userValue && userValue.userLogged 
             ? userValue.userLogged 
-            : userValue && userValue.userCreated ? userValue.userCreated : null 
+            : null 
             if (typeUser) {
-                const socket = io("https://chatapp-mpyu.onrender.com/", {
+                const socket = io(import.meta.env.PROD 
+                    ? import.meta.env.VITE_API_URL 
+                    : import.meta.env.VITE_API_URL_DEV, {
+                    withCredentials: true,
                     query: {
                         id: typeUser._id  
-                    }
-                })
+                    },
+                    transports: ["websocket", "polling"] // Asegura que se intenten múltiples métodos de transporte
+                });
+
 
                 setSocket(socket)
 

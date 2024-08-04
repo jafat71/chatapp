@@ -1,6 +1,7 @@
 const { User } = require("../models/user.model");
 const clearToken = require("../services/clearJWT");
 const genToken = require("../services/generateJWT");
+const { securePassword } = require("../services/passwordHash");
 
 class AuthController {
 
@@ -33,7 +34,6 @@ class AuthController {
             const {
                 fullname,
                 username,
-                password,
                 gender,
                 profilePic,
                 _id } = await newUser.save();
@@ -42,11 +42,10 @@ class AuthController {
             genToken(_id, res)
 
             return res.json({
-                userCreated: {
+                userLogged: {
                     _id,
                     fullname,
                     username,
-                    password,
                     gender,
                     profilePic
                 }
@@ -57,6 +56,30 @@ class AuthController {
             })
         }
 
+    }
+
+    async reset (req,res){
+        const resetDto = req.resetDto;
+        try {
+            const userLogged = await User.findOne({ username: resetDto.username });
+            userLogged.password = await securePassword(resetDto.newPassword)
+            const updatedUsser = await userLogged.save();
+            genToken(updatedUsser._id, res)
+
+            return res.json({
+                userLogged: {
+                    _id:       updatedUsser._id,
+                    fullname:   updatedUsser.fullname,
+                    username:   updatedUsser.username,
+                    gender:     updatedUsser.gender,
+                    profilePic: updatedUsser.profilePic
+                }
+            })
+        } catch (error) {
+            return res.status(500).json({
+                error: "Reset Password Fail: " + error
+            })
+        }
     }
 
     logout(req, res) {

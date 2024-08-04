@@ -87,6 +87,9 @@ const Login = () => {
                                 {loading ? <span className="loading loading-spinner"></span> : "Signup"}
                             </button>
                         </Link>
+                        <Link to="/reset" className="my-2 flex justify-center">
+                            <span className="mx-8 label-text">Forget Password?</span>
+                        </Link>
                     </div>
                 </div>
             </div>

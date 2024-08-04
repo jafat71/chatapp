@@ -8,6 +8,7 @@ import { DisplayModeContextProvider } from "./pages/home/context/DisplayModeCont
 import { useAuthUserValue } from "./context/AuthContext";
 import { useEffect } from "react";
 import { LiveContextProvider } from "./pages/home/context/LiveContext";
+import Reset from "./pages/reset/Reset";
 function App() {
   const user = useAuthUserValue()
   
@@ -31,6 +32,7 @@ function App() {
             </DisplayModeContextProvider>
         }></Route>
         <Route path="/login" element={user ? <Navigate to="/home" /> : <Login></Login>}></Route>
+        <Route path="/reset" element={user ? <Navigate to="/home" /> : <Reset></Reset>}></Route>
         <Route path="/signup" element={user ? <Navigate to="/home" /> : <Signup></Signup>}></Route>
         <Route path="/*" element={<Navigate to="/home" />}></Route>
 

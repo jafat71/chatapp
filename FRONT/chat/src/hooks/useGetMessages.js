@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react"
 import useContact from "../zustand/useContact"
 import getMessages from "../services/getMessages"
-import { useLiveMessageValue } from "../pages/home/context/LiveContext"
 
 export const useGetMessages = () => {
   
     const [loading, setLoading] = useState(false)
     const {messages, setMessages, selectedContact} = useContact()
-    const liveMessages = useLiveMessageValue()
     
     useEffect(() => {
         const getMessagesUser = async () => {

@@ -6,10 +6,11 @@ const express = require('express')
 const app = express()
 
 const server = http.createServer(app)
-const io = new Server(server,{
+const io = new Server(server, {
     cors: {
-        origin: ["https://chatapp-mpyu.onrender.com"],
-        methods: ["GET","POST"]
+        origin: ["https://chatapp-mpyu.onrender.com", "http://localhost:5173"],
+        methods: ["GET", "POST"],
+        credentials: true // Añadir esta línea para permitir el envío de cookies
     }
 });
 

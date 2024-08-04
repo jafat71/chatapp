@@ -1,17 +1,21 @@
 import toast from "react-hot-toast"
 
-const validateInfo = ({fullname,username,password,confirmPassword,gender}) => {
+const validateResetInfo = ({
+    username,
+    password,
+    newPassword,
+    confirmNewPassword}) => {
 
-    if(!fullname || !username || !password || !confirmPassword || !gender){
+    if(!username || !password || !newPassword || !confirmNewPassword){
         toast.error("Please fill all fields")
         return false
     }
-    if(password !== confirmPassword) {
+    if(newPassword !== confirmNewPassword) {
         toast.error("Passwords do not match")
         return false
     }
 
-    if(password.length < 8){
+    if(newPassword.length < 8){
         toast.error("Passwords must be higher than 8 characters")
         return false
 
@@ -20,4 +24,4 @@ const validateInfo = ({fullname,username,password,confirmPassword,gender}) => {
   return true
 }
 
-export default validateInfo
+export default validateResetInfo
