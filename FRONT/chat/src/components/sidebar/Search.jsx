@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
 import useContact from "../../zustand/useContact"
+import { useNavigate } from "react-router-dom"
 const Search = () => {
     const [userInfo, setuserInfo] = useState({})
+    const navigate = useNavigate();
 
     useEffect(() => {
         setuserInfo(JSON.parse(localStorage.getItem("user")))
@@ -19,14 +21,16 @@ const Search = () => {
         }
     }, [search])
 
-    console.log(userInfo)
+    const handleNavigate = () => {
+        navigate('/reset');
+    };
 
     return (
         <div className="w-full">
             <div className="w-full text-center text-rose-300 font-bold">INSTACHAT</div>
             <div>
                 {
-                    userInfo.userLogged ? (
+                    userInfo.userLogged && (
                         <div className="flex flex-col items-center justify-center 
                             text-sm md:text-xs">
                                 <h2>User Information</h2>
@@ -37,22 +41,10 @@ const Search = () => {
                                 />
                                 <div>{userInfo.userLogged.username} </div>
                                 <div>{userInfo.userLogged.fullname}</div>
+                                <button type="button" onClick={handleNavigate}>
+                                    <div className="text-sky-400 cursor-pointer">Reset Password?</div>
+                                </button>
                             </div>
-                    ) : (
-                        userInfo.userCreated ? (
-                            <div className="flex flex-col items-center justify-center 
-                            text-sm md:text-xs">
-                                <h2>User Information</h2>
-                                <img
-                                    alt="user image"
-                                    src={userInfo.userCreated.profilePic}
-                                    className="w-12"
-                                />
-                                <div>{userInfo.userCreated.username} </div>
-                                <div>{userInfo.userCreated.fullname}</div>
-                            </div>) : (
-                            <span className="loading loading-spinner"></span>
-                        )
                     )
                 }
             </div>

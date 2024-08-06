@@ -15,7 +15,7 @@ const ContactList = () => {
     }, [])
 
     useEffect(() => {
-        const filteredContacts = contacts.filter(contact =>
+        const filteredContacts = contacts?.filter(contact =>
             contact.fullname.toLowerCase().includes(contactSearch.toLowerCase())
         );
         setDisplayContacts( contactSearch==="" ? contacts : filteredContacts);
@@ -25,7 +25,7 @@ const ContactList = () => {
         <div className="flex flex-col items-center w-full h-full overflow-y-auto ">
             
             {
-                displayContacts .map((contact)=>(
+                displayContacts?.map((contact)=>(
                     <Contact
                         key={contact._id}
                         conversation={contact}

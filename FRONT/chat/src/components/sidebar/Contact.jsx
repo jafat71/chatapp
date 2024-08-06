@@ -7,12 +7,12 @@ import ChatIcon from "./ChatIcon"
 
 const Contact = ({conversation}) => {
     const liveMessages = useLiveMessageValue()
-    const disptachLiveMessages = useLiveMessageDispatch()
+    const dispatchLiveMessages = useLiveMessageDispatch()
     const dispatchDisplay = useDisplayDispatch()
     const handleClick = () => {
         (!window.matchMedia("(min-width: 768px)").matches) && dispatchDisplay({ type: "CHAT" })
         setSelectedContact(conversation)
-        disptachLiveMessages({type:"UNSET"})
+        dispatchLiveMessages({type:"UNSET"})
     };
     const {selectedContact,setSelectedContact } = useContact()
 

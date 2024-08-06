@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import useContact from "../zustand/useContact"
 import getMessages from "../services/getMessages"
+import { decryptMessage } from "../services/cypher"
 
 export const useGetMessages = () => {
   
@@ -16,10 +17,14 @@ export const useGetMessages = () => {
                     setMessages([])
                     throw new Error(data.error)
                 }
-                setMessages(data.messages)
+                data.messages.forEach(msg => {
+                    msg.message = decryptMessage(msg.message)
+                });
+                setMessages([...data.messages])
                 return data.messages
             } catch (error) {
-                //toast.error("" + error)
+                console.log(error)
+                // toast.error("" + error)
             } finally {
                 setLoading(false)
             }

@@ -32,7 +32,7 @@ function App() {
             </DisplayModeContextProvider>
         }></Route>
         <Route path="/login" element={user ? <Navigate to="/home" /> : <Login></Login>}></Route>
-        <Route path="/reset" element={user ? <Navigate to="/home" /> : <Reset></Reset>}></Route>
+        <Route path="/reset" element={!user ? <Navigate to="/login" /> : <Reset></Reset>}></Route>
         <Route path="/signup" element={user ? <Navigate to="/home" /> : <Signup></Signup>}></Route>
         <Route path="/*" element={<Navigate to="/home" />}></Route>
 

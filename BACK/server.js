@@ -13,9 +13,9 @@ const { app, server } = require('./sockets/socket')
 const path = require("path")
 
 const corsOptions = {
-    origin: ["https://chatapp-mpyu.onrender.com","http://localhost:5173"], // Dirección de Vite
-    credentials: true, // Permitir el envío de cookies
-    optionsSuccessStatus: 200 // Algunas navegadores antiguos (IE11, varios SmartTVs) fallan si no devuelven 204
+    origin: ["https://chatapp-mpyu.onrender.com","http://localhost:5173"], 
+    credentials: true, 
+    optionsSuccessStatus: 200 
 };
 app.use(cors(corsOptions));
 

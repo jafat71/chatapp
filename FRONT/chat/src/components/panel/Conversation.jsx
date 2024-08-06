@@ -7,14 +7,12 @@ import useContact from "../../zustand/useContact"
 import { useGetMessages } from "../../hooks/useGetMessages"
 import SkeletonChat from "./SkeletonChat"
 import useListenMessages from "../../hooks/useListenMessages"
-import { useLiveMessageValue } from "../../pages/home/context/LiveContext"
 
 const Conversation = () => {
 
     useListenMessages();
-
     const { selectedContact, setSelectedContact } = useContact()
-    //TODO: CREAR CONTEXTO de Contacto actual para chequeo de conversacion actual
+    
     useEffect(() => {
         return () => {
             setuserInfo(null)
@@ -28,6 +26,7 @@ const Conversation = () => {
         setuserInfo(JSON.parse(localStorage.getItem("user")))
     }, [])
     const [loading, messages] = useGetMessages()
+    console.log(messages)
     useEffect(() => {
         messages && setTimeout(() => {
 
@@ -54,8 +53,6 @@ const Conversation = () => {
             </div>
         )
     }
-
-
     const getMessages = () => {
         return (
             <div className="max-h-full">

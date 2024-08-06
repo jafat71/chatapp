@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { useResetPassword } from "../../hooks/useResetPassword";
 import { Link } from "react-router-dom";
+import { useAuthUserValue } from "../../context/AuthContext";
 
 const Reset = () => {
     const [reset] = useResetPassword();
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
+    const authUser = useAuthUserValue()
     const [inputFields, setInputFields] = useState({
-        username: "",
+        username: "" + authUser.userLogged.username,
         password: "",
         newPassword: "",
         confirmNewPassword: ""
@@ -94,6 +96,7 @@ const Reset = () => {
                                     className="input input-bordered text-white focus:ring-2 focus:ring-rose-500"
                                     value={inputFields.username}
                                     onChange={handleChange}
+                                    disabled={true}
                                     required
                                 />
                                 {errors.username && <p className="text-red-500 text-xs py-1 w-60 text-left">{errors.username}</p>}
@@ -163,24 +166,13 @@ const Reset = () => {
                                 </button>
                             </div>
                         </form>
-                        <Link to="/login" className="my-2 flex justify-center">
+                        <Link to="/home" className="my-2 flex justify-center">
                             <button
                                 className="btn btn-accent w-[20rem]"
                                 disabled={loading}
                             >
-                                Back to Login
+                                Back to Chat
                             </button>                        
-                        </Link>
-                        <label className="label">
-                            <span className="mx-8 label-text">Don't have an account?</span>
-                        </label>
-                        <Link to="/signup" className="my-2 flex justify-center">
-                            <button
-                                className="btn btn-secondary w-[20rem]"
-                                disabled={loading}
-                            >
-                                {loading ? <span className="loading loading-spinner"></span> : "Signup"}
-                            </button>
                         </Link>
                     </div>
                 </div>

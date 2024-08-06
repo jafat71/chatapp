@@ -36,13 +36,16 @@ class ResetDto {
             return ["Missing fields", null]
         }
 
-        const user = await User.findOne({ username })
+        const user = await User.findOne({ username: username.toString() })
         
         const passwordValidation = await bcryptjs.compare(password, user?.password || "")
         if(!passwordValidation || !user){
             return ["User/Password incorrect", null]        
         }
-
+        const newPasswordEqualValidation = await bcryptjs.compare(newPassword, user?.password || "")
+        if(newPasswordEqualValidation || !user){
+            return ["New Password Cannot be the same as previous one", null]        
+        }
         if (newPassword !== confirmNewPassword) return ["New Passwords do not match", null]
 
         return [null, new ResetDto(

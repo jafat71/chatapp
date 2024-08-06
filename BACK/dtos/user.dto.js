@@ -43,7 +43,7 @@ class UserDto {
 
         if (password !== confirmPassword) return ["Passwords do not match", null]
 
-        const user = await User.findOne({ username })
+        const user = await User.findOne({ username: username.toString()  })
         if (user) return ["Username already exists", null]
         
         if (!(gender === "MALE" || gender === "FEMALE")) return ["Invalid genre (MALE|FEMALE)", null]

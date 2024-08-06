@@ -2,6 +2,7 @@ import { useState } from "react"
 import useContact from "../zustand/useContact"
 import sendMessage from "../services/sendMessage"
 import toast from "react-hot-toast"
+import { decryptMessage } from "../services/cypher"
 
 export const useSendMessage = () => {
   
@@ -17,9 +18,14 @@ export const useSendMessage = () => {
             if (data.error) {
                 throw new Error(data.error)
             }
-            setMessages([...messages,data])
+            const decryptedMessage = {
+                ...data,
+                message: decryptMessage(data.message)
+            };
+            setMessages([...messages,decryptedMessage])
             return data
         } catch (error) {
+            console.log(error)
             toast.error("" + error)
         } finally {
             setLoading(false)

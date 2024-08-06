@@ -5,7 +5,7 @@ import validateLoginInfo from "../services/validateLoginInfo"
 import sendLogin from "../services/sendLogin"
 
 export const useLogin = () => {
-
+    
     const setIsAuthenticated = useAuthUserSetter()
     
     const login = async ({

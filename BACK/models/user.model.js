@@ -23,6 +23,14 @@ const userSchema = new mongoose.Schema({
     profilePic: {
         type: String,
         default: ""
+    },
+    failedAttempts: {
+        type: Number,
+        default: 0
+    },
+    lockoutUntil: {
+        type: Date,
+        default: null
     }
     //createdAt, updatedAt
 },{ timestamps: true })
