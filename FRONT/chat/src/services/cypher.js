@@ -7,3 +7,9 @@ export const decryptMessage = (encryptedMessage) => {
     return bytes.toString(CryptoJS.enc.Utf8);
 };
 
+export const encryptMessage = (message) => {
+    return CryptoJS.AES.encrypt(message, SECRET_KEY).toString();
+};
+
+
+

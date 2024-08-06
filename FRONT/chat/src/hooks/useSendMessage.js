@@ -2,7 +2,7 @@ import { useState } from "react"
 import useContact from "../zustand/useContact"
 import sendMessage from "../services/sendMessage"
 import toast from "react-hot-toast"
-import { decryptMessage } from "../services/cypher"
+import { decryptMessage, encryptMessage } from "../services/cypher"
 
 export const useSendMessage = () => {
   
@@ -13,8 +13,12 @@ export const useSendMessage = () => {
         message
     }) => {
         setLoading(true)
-        try {
-            const data = await sendMessage({ id: selectedContact._id,message })
+        try { 
+
+            const data = await sendMessage({ 
+                id: selectedContact._id,
+                message: encryptMessage(message) 
+            })
             if (data.error) {
                 throw new Error(data.error)
             }

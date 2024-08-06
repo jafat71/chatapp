@@ -17,6 +17,7 @@ class MessageDto {
         receiverId,
         message
     ) {
+
         if (!receiverId ) {
             return ["Missing receiverId", null]
         }

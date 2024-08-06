@@ -26,7 +26,6 @@ const Conversation = () => {
         setuserInfo(JSON.parse(localStorage.getItem("user")))
     }, [])
     const [loading, messages] = useGetMessages()
-    console.log(messages)
     useEffect(() => {
         messages && setTimeout(() => {
 

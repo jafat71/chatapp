@@ -13,8 +13,6 @@ const useListenMessages = () => {
             newMessage.message = decryptMessage(newMessage.message);
             const sound = new Audio(notifSound);
             sound.play();
-            console.log(selectedContact._id)
-            console.log(newMessage.senderId)
             if (newMessage.senderId !== selectedContact._id) {
                 return;
             }

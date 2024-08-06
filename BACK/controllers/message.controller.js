@@ -9,8 +9,7 @@ class MessageController {
     async sendMessage(req, res) {
         const messageDto = req.messageDto;
         try {
-            const encryptedContent = encryptMessage(messageDto.message);
-
+            //const encryptedContent = encryptMessage(messageDto.message);
             let conversation = await Conversation.findOne({
                 participants: { $all: [messageDto.senderId, messageDto.receiverId] }
             })
@@ -22,8 +21,8 @@ class MessageController {
             }
 
             const newMessage = new Message({
-                ...messageDto,
-                message: encryptedContent
+                ...messageDto
+                // message: encryptedContent
             })
 
             if (newMessage) {
